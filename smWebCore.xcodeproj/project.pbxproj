@@ -1507,7 +1507,6 @@
 		DA70C1B513BC741600158E22 /* ImageSourceCG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA70BBEA13BC741400158E22 /* ImageSourceCG.cpp */; };
 		DA70C1B613BC741600158E22 /* ImageSourceCG.h in Headers */ = {isa = PBXBuildFile; fileRef = DA70BBEB13BC741400158E22 /* ImageSourceCG.h */; };
 		DA70C1B713BC741600158E22 /* ImageSourceCGMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA70BBEC13BC741400158E22 /* ImageSourceCGMac.mm */; };
-		DA70C1B813BC741600158E22 /* ImageSourceCGWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA70BBED13BC741400158E22 /* ImageSourceCGWin.cpp */; };
 		DA70C1B913BC741600158E22 /* IntPointCG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA70BBEE13BC741400158E22 /* IntPointCG.cpp */; };
 		DA70C1BA13BC741600158E22 /* IntRectCG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA70BBEF13BC741400158E22 /* IntRectCG.cpp */; };
 		DA70C1BB13BC741600158E22 /* IntSizeCG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA70BBF013BC741400158E22 /* IntSizeCG.cpp */; };
@@ -5223,7 +5222,6 @@
 		DA70BBEA13BC741400158E22 /* ImageSourceCG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageSourceCG.cpp; sourceTree = "<group>"; };
 		DA70BBEB13BC741400158E22 /* ImageSourceCG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSourceCG.h; sourceTree = "<group>"; };
 		DA70BBEC13BC741400158E22 /* ImageSourceCGMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageSourceCGMac.mm; sourceTree = "<group>"; };
-		DA70BBED13BC741400158E22 /* ImageSourceCGWin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageSourceCGWin.cpp; sourceTree = "<group>"; };
 		DA70BBEE13BC741400158E22 /* IntPointCG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntPointCG.cpp; sourceTree = "<group>"; };
 		DA70BBEF13BC741400158E22 /* IntRectCG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntRectCG.cpp; sourceTree = "<group>"; };
 		DA70BBF013BC741400158E22 /* IntSizeCG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IntSizeCG.cpp; sourceTree = "<group>"; };
@@ -9478,7 +9476,6 @@
 				DA70BBEA13BC741400158E22 /* ImageSourceCG.cpp */,
 				DA70BBEB13BC741400158E22 /* ImageSourceCG.h */,
 				DA70BBEC13BC741400158E22 /* ImageSourceCGMac.mm */,
-				DA70BBED13BC741400158E22 /* ImageSourceCGWin.cpp */,
 				DA70BBEE13BC741400158E22 /* IntPointCG.cpp */,
 				DA70BBEF13BC741400158E22 /* IntRectCG.cpp */,
 				DA70BBF013BC741400158E22 /* IntSizeCG.cpp */,
@@ -13731,7 +13728,6 @@
 				DA70C1B413BC741600158E22 /* ImageCG.cpp in Sources */,
 				DA70C1B513BC741600158E22 /* ImageSourceCG.cpp in Sources */,
 				DA70C1B713BC741600158E22 /* ImageSourceCGMac.mm in Sources */,
-				DA70C1B813BC741600158E22 /* ImageSourceCGWin.cpp in Sources */,
 				DA70C1B913BC741600158E22 /* IntPointCG.cpp in Sources */,
 				DA70C1BA13BC741600158E22 /* IntRectCG.cpp in Sources */,
 				DA70C1BB13BC741600158E22 /* IntSizeCG.cpp in Sources */,
