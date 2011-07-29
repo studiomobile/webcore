@@ -1,0 +1,6 @@
+- no JS
+- no Chrome
+- CT used instead of GS for fonts
+- networking rewritten
+- hack for <title/>
+

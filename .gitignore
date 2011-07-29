@@ -1,0 +1,27 @@
+# xcode noise
+build/*
+DerivedData/*
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.tmproj
+*.swp
+*.tm_build_errors
+xcuserdata
+
+# old school
+.svn
+
+# osx noise
+.DS_Store
+profile
+
+#emacs noise
+TAGS
+ID
+*~
+*#
+.emacs.desktop
+
+testHtml/*
