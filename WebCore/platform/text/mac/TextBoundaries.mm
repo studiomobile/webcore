@@ -34,13 +34,23 @@ void findWordBoundary(const UChar* chars, int len, int position, int* start, int
 {
     NSString* string = [[NSString alloc] initWithCharactersNoCopy:const_cast<unichar*>(chars)
         length:len freeWhenDone:NO];
-    NSAttributedString* attr = [[NSAttributedString alloc] initWithString:string];
-        // TODO - implement with NSScanner
-    NSRange range = NSMakeRange((position >= len) ? len - 1 : position, 1);// (NSRange)[attr doubleClickAtIndex:(position >= len) ? len - 1 : position];
-    [attr release];
+    
+    CFStringTokenizerRef tokenizer = CFStringTokenizerCreate(NULL, (CFStringRef)string, CFRangeMake(0, string.length), 
+                                                     kCFStringTokenizerUnitWordBoundary, 
+                                                     NULL);
+    
+    CFStringTokenizerTokenType tokenType = CFStringTokenizerGoToTokenAtIndex(tokenizer, (position >= len) ? len - 1 : position);
+    if (tokenType == kCFStringTokenizerTokenNone) {
+        *start = position;
+        *end = position;
+    } else {
+        CFRange wordRange = CFStringTokenizerGetCurrentTokenRange(tokenizer);
+        *start = wordRange.location;
+        *end = wordRange.location + wordRange.length;
+    }
+
+    CFRelease(tokenizer);
     [string release];
-    *start = range.location;
-    *end = range.location + range.length;
 }
 
 int findNextWordFromIndex(const UChar* chars, int len, int position, bool forward)
@@ -48,7 +58,7 @@ int findNextWordFromIndex(const UChar* chars, int len, int position, bool forwar
     NSString* string = [[NSString alloc] initWithCharactersNoCopy:const_cast<unichar*>(chars)
         length:len freeWhenDone:NO];
     NSAttributedString* attr = [[NSAttributedString alloc] initWithString:string];
-        // TODO - implement with NSScanner
+        // TODO - implement with CFStringTokenizerRef !!!
     int result = position + 1;//(int)[attr nextWordFromIndex:position forward:forward];
     [attr release];
     [string release];
