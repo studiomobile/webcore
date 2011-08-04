@@ -46,6 +46,7 @@
 #include "Settings.h"
 //#include <objc/objc-runtime.h>
 #include <wtf/StdLibExtras.h>
+#include "ClipboardSM.h"
 
 #if !(defined(OBJC_API_VERSION) && OBJC_API_VERSION > 0)
 static inline IMP method_setImplementation(Method m, IMP i)
@@ -213,11 +214,11 @@ bool EventHandler::eventActivatedView(const PlatformMouseEvent& event) const
 
 PassRefPtr<Clipboard> EventHandler::createDraggingClipboard() const
 {
-    NSPasteboard *pasteboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-    // Must be done before ondragstart adds types and data to the pboard,
-    // also done for security, as it erases data from the last drag
-    [pasteboard declareTypes:[NSArray array] owner:nil];
-    return ClipboardMac::create(Clipboard::DragAndDrop, pasteboard, ClipboardWritable, m_frame);
+//    NSPasteboard *pasteboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+//    // Must be done before ondragstart adds types and data to the pboard,
+//    // also done for security, as it erases data from the last drag
+//    [pasteboard declareTypes:[NSArray array] owner:nil];
+    return ClipboardSM::create(Clipboard::DragAndDrop, ClipboardWritable, m_frame);
 }
 
 #endif

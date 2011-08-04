@@ -175,6 +175,10 @@
 		DA07472A13E2C24D00C5BFD7 /* PlatformStrategies.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA70BEA513BC741500158E22 /* PlatformStrategies.cpp */; };
 		DA07472D13E2C36200C5BFD7 /* FrameNetworkingContextSM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA07472B13E2C36200C5BFD7 /* FrameNetworkingContextSM.cpp */; };
 		DA07472E13E2C36200C5BFD7 /* FrameNetworkingContextSM.h in Headers */ = {isa = PBXBuildFile; fileRef = DA07472C13E2C36200C5BFD7 /* FrameNetworkingContextSM.h */; };
+		DA0C6EB313EA834B001E1E1C /* DragControllerSM.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA0C6EB213EA834B001E1E1C /* DragControllerSM.mm */; };
+		DA0C6EB613EA842A001E1E1C /* EventHandlerSM.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA0C6EB513EA842A001E1E1C /* EventHandlerSM.mm */; };
+		DA0C6EB913EA87B9001E1E1C /* ClipboardSM.h in Headers */ = {isa = PBXBuildFile; fileRef = DA0C6EB713EA87B9001E1E1C /* ClipboardSM.h */; };
+		DA0C6EBA13EA87B9001E1E1C /* ClipboardSM.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA0C6EB813EA87B9001E1E1C /* ClipboardSM.mm */; };
 		DA16CCC313C1B43F002C0C2A /* gluos.h in Headers */ = {isa = PBXBuildFile; fileRef = DA16CCA213C1B43F002C0C2A /* gluos.h */; };
 		DA16CCC413C1B43F002C0C2A /* internal_glu.h in Headers */ = {isa = PBXBuildFile; fileRef = DA16CCA313C1B43F002C0C2A /* internal_glu.h */; };
 		DA16CCC513C1B43F002C0C2A /* dict-list.h in Headers */ = {isa = PBXBuildFile; fileRef = DA16CCA613C1B43F002C0C2A /* dict-list.h */; };
@@ -2235,8 +2239,6 @@
 		DA70C72613BC747C00158E22 /* History.h in Headers */ = {isa = PBXBuildFile; fileRef = DA70C5D613BC747B00158E22 /* History.h */; };
 		DA70C72713BC747C00158E22 /* Location.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA70C5D813BC747B00158E22 /* Location.cpp */; };
 		DA70C72813BC747C00158E22 /* Location.h in Headers */ = {isa = PBXBuildFile; fileRef = DA70C5D913BC747B00158E22 /* Location.h */; };
-		DA70C72A13BC747C00158E22 /* DragControllerMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA70C5DD13BC747B00158E22 /* DragControllerMac.mm */; };
-		DA70C72B13BC747C00158E22 /* EventHandlerMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA70C5DE13BC747B00158E22 /* EventHandlerMac.mm */; };
 		DA70C72C13BC747C00158E22 /* FrameMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA70C5DF13BC747B00158E22 /* FrameMac.mm */; };
 		DA70C72D13BC747C00158E22 /* PageMac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA70C5E013BC747B00158E22 /* PageMac.cpp */; };
 		DA70C72E13BC747C00158E22 /* WebCoreFrameView.h in Headers */ = {isa = PBXBuildFile; fileRef = DA70C5E113BC747B00158E22 /* WebCoreFrameView.h */; };
@@ -2966,6 +2968,8 @@
 		DA7C709113BDF2DF005F519F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7C708F13BDF2DA005F519F /* CoreText.framework */; };
 		DA7C709513BDF8C7005F519F /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA7C709213BDF8B3005F519F /* Console.cpp */; };
 		DA7C709613BDF8C7005F519F /* Console.h in Headers */ = {isa = PBXBuildFile; fileRef = DA7C709313BDF8B9005F519F /* Console.h */; };
+		DAC7534D13EA7F7E0066188B /* DragDataSM.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAC7534B13EA7F7E0066188B /* DragDataSM.mm */; };
+		DAC7534E13EA7F7E0066188B /* DragImageSM.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAC7534C13EA7F7E0066188B /* DragImageSM.mm */; };
 		DAD8AB1013C326D700041350 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD8AB0F13C326D700041350 /* OpenGLES.framework */; };
 		DAD8AB1213C353AE00041350 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD8AB1113C353AD00041350 /* CFNetwork.framework */; };
 		DAD9AF8613C45D4400B67797 /* BlockExceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = DAD9AF8413C45D4400B67797 /* BlockExceptions.h */; };
@@ -3387,6 +3391,10 @@
 		DA050A8D13CF3A0300CDC9A7 /* WebKitCSSTransformValue.idl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WebKitCSSTransformValue.idl; sourceTree = "<group>"; };
 		DA07472B13E2C36200C5BFD7 /* FrameNetworkingContextSM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameNetworkingContextSM.cpp; sourceTree = "<group>"; };
 		DA07472C13E2C36200C5BFD7 /* FrameNetworkingContextSM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameNetworkingContextSM.h; sourceTree = "<group>"; };
+		DA0C6EB213EA834B001E1E1C /* DragControllerSM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DragControllerSM.mm; sourceTree = "<group>"; };
+		DA0C6EB513EA842A001E1E1C /* EventHandlerSM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventHandlerSM.mm; sourceTree = "<group>"; };
+		DA0C6EB713EA87B9001E1E1C /* ClipboardSM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClipboardSM.h; sourceTree = "<group>"; };
+		DA0C6EB813EA87B9001E1E1C /* ClipboardSM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ClipboardSM.mm; sourceTree = "<group>"; };
 		DA13E60513CDAAC800ABF0CB /* missingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missingImage.png; sourceTree = "<group>"; };
 		DA13E60613CDAAC900ABF0CB /* missingImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = missingImage.tiff; sourceTree = "<group>"; };
 		DA16CCA113C1B43F002C0C2A /* glu.gyp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = glu.gyp; sourceTree = "<group>"; };
@@ -5968,8 +5976,6 @@
 		DA70C5D813BC747B00158E22 /* Location.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Location.cpp; sourceTree = "<group>"; };
 		DA70C5D913BC747B00158E22 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		DA70C5DA13BC747B00158E22 /* Location.idl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Location.idl; sourceTree = "<group>"; };
-		DA70C5DD13BC747B00158E22 /* DragControllerMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DragControllerMac.mm; sourceTree = "<group>"; };
-		DA70C5DE13BC747B00158E22 /* EventHandlerMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = EventHandlerMac.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		DA70C5DF13BC747B00158E22 /* FrameMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = FrameMac.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		DA70C5E013BC747B00158E22 /* PageMac.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PageMac.cpp; sourceTree = "<group>"; };
 		DA70C5E113BC747B00158E22 /* WebCoreFrameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebCoreFrameView.h; sourceTree = "<group>"; };
@@ -6751,6 +6757,8 @@
 		DA7C709213BDF8B3005F519F /* Console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Console.cpp; sourceTree = "<group>"; };
 		DA7C709313BDF8B9005F519F /* Console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Console.h; sourceTree = "<group>"; };
 		DA7C709413BDF8C2005F519F /* Console.idl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Console.idl; sourceTree = "<group>"; };
+		DAC7534B13EA7F7E0066188B /* DragDataSM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DragDataSM.mm; sourceTree = "<group>"; };
+		DAC7534C13EA7F7E0066188B /* DragImageSM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DragImageSM.mm; sourceTree = "<group>"; };
 		DAD8AB0F13C326D700041350 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		DAD8AB1113C353AD00041350 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		DAD9AF8413C45D4400B67797 /* BlockExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockExceptions.h; sourceTree = "<group>"; };
@@ -7216,6 +7224,15 @@
 				DA050A8D13CF3A0300CDC9A7 /* WebKitCSSTransformValue.idl */,
 			);
 			path = css;
+			sourceTree = "<group>";
+		};
+		DA0C6EB113EA834B001E1E1C /* sm */ = {
+			isa = PBXGroup;
+			children = (
+				DA0C6EB513EA842A001E1E1C /* EventHandlerSM.mm */,
+				DA0C6EB213EA834B001E1E1C /* DragControllerSM.mm */,
+			);
+			path = sm;
 			sourceTree = "<group>";
 		};
 		DA16CCA013C1B43F002C0C2A /* glu */ = {
@@ -7810,6 +7827,10 @@
 		DA5EE95613C6231F0004A411 /* sm */ = {
 			isa = PBXGroup;
 			children = (
+				DA0C6EB713EA87B9001E1E1C /* ClipboardSM.h */,
+				DA0C6EB813EA87B9001E1E1C /* ClipboardSM.mm */,
+				DAC7534B13EA7F7E0066188B /* DragDataSM.mm */,
+				DAC7534C13EA7F7E0066188B /* DragImageSM.mm */,
 				DA5EE95713C6234E0004A411 /* SystemTimeSM.cpp */,
 				DA5EE95913C623F00004A411 /* PlatformScreenSM.cpp */,
 				DA5EE95B13C625000004A411 /* SoundSM.cpp */,
@@ -10126,6 +10147,7 @@
 		DA70C58213BC747A00158E22 /* page */ = {
 			isa = PBXGroup;
 			children = (
+				DA0C6EB113EA834B001E1E1C /* sm */,
 				DA7C709213BDF8B3005F519F /* Console.cpp */,
 				DA7C709313BDF8B9005F519F /* Console.h */,
 				DA7C709413BDF8C2005F519F /* Console.idl */,
@@ -10327,8 +10349,6 @@
 		DA70C5DB13BC747B00158E22 /* mac */ = {
 			isa = PBXGroup;
 			children = (
-				DA70C5DD13BC747B00158E22 /* DragControllerMac.mm */,
-				DA70C5DE13BC747B00158E22 /* EventHandlerMac.mm */,
 				DA70C5DF13BC747B00158E22 /* FrameMac.mm */,
 				DA70C5E013BC747B00158E22 /* PageMac.cpp */,
 				DA70C5E113BC747B00158E22 /* WebCoreFrameView.h */,
@@ -13196,6 +13216,7 @@
 				DA5BBE3213D8993400121D95 /* SVGZoomAndPan.h in Headers */,
 				DA5BBE3413D8993400121D95 /* SVGZoomEvent.h in Headers */,
 				DA07472E13E2C36200C5BFD7 /* FrameNetworkingContextSM.h in Headers */,
+				DA0C6EB913EA87B9001E1E1C /* ClipboardSM.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14036,8 +14057,6 @@
 				DA70C72213BC747C00158E22 /* GroupSettings.cpp in Sources */,
 				DA70C72513BC747C00158E22 /* History.cpp in Sources */,
 				DA70C72713BC747C00158E22 /* Location.cpp in Sources */,
-				DA70C72A13BC747C00158E22 /* DragControllerMac.mm in Sources */,
-				DA70C72B13BC747C00158E22 /* EventHandlerMac.mm in Sources */,
 				DA70C72C13BC747C00158E22 /* FrameMac.mm in Sources */,
 				DA70C72D13BC747C00158E22 /* PageMac.cpp in Sources */,
 				DA70C73013BC747C00158E22 /* WebCoreViewFactory.m in Sources */,
@@ -14642,6 +14661,11 @@
 				DA5BBE3113D8993400121D95 /* SVGZoomAndPan.cpp in Sources */,
 				DA5BBE3313D8993400121D95 /* SVGZoomEvent.cpp in Sources */,
 				DA07472D13E2C36200C5BFD7 /* FrameNetworkingContextSM.cpp in Sources */,
+				DAC7534D13EA7F7E0066188B /* DragDataSM.mm in Sources */,
+				DAC7534E13EA7F7E0066188B /* DragImageSM.mm in Sources */,
+				DA0C6EB313EA834B001E1E1C /* DragControllerSM.mm in Sources */,
+				DA0C6EB613EA842A001E1E1C /* EventHandlerSM.mm in Sources */,
+				DA0C6EBA13EA87B9001E1E1C /* ClipboardSM.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

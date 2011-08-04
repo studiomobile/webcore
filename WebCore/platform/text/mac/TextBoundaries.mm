@@ -57,8 +57,15 @@ int findNextWordFromIndex(const UChar* chars, int len, int position, bool forwar
 {   
     NSString* string = [[NSString alloc] initWithCharactersNoCopy:const_cast<unichar*>(chars)
         length:len freeWhenDone:NO];
+    // TODO - implement with CFStringTokenizerRef !!!
+//    CFStringTokenizerRef tokenizer = CFStringTokenizerCreate(NULL, (CFStringRef)string, CFRangeMake(0, string.length), 
+//                                                             kCFStringTokenizerUnitWord, 
+//                                                             NULL);
+//    CFStringTokenizerGoToTokenAtIndex(tokenizer, position);
+//    CFStringTokenizerAdvanceToNextToken(tokenizer);
+//    CFRange tokenRange = CFStringTokenizerGetCurrentTokenRange(tokenizer);
+
     NSAttributedString* attr = [[NSAttributedString alloc] initWithString:string];
-        // TODO - implement with CFStringTokenizerRef !!!
     int result = position + 1;//(int)[attr nextWordFromIndex:position forward:forward];
     [attr release];
     [string release];

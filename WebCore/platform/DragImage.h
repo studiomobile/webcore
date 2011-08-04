@@ -30,13 +30,22 @@
 #include "FloatSize.h"
 #include <wtf/Forward.h>
 
-#if PLATFORM(MAC)
+#if PLATFORM(IOS)
+#include <wtf/RetainPtr.h>
+#ifdef __OBJC__
+@class UIImage;
+#else
+class UIImage;
+#endif
+#elif PLATFORM(MAC)
 #include <wtf/RetainPtr.h>
 #ifdef __OBJC__
 @class NSImage;
 #else
 class NSImage;
 #endif
+
+
 #elif PLATFORM(QT)
 QT_BEGIN_NAMESPACE
 class QPixmap;
@@ -66,7 +75,9 @@ namespace WebCore {
     class KURL;
     class Range;
 
-#if PLATFORM(MAC)
+#if PLATFORM(IOS)
+    typedef RetainPtr<UIImage> DragImageRef;
+#elif PLATFORM(MAC)
     typedef RetainPtr<NSImage> DragImageRef;
 #elif PLATFORM(QT)
     typedef QPixmap* DragImageRef;

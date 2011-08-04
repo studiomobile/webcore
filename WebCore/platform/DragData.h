@@ -36,15 +36,25 @@
 
 #if PLATFORM(MAC)
 #include <wtf/RetainPtr.h>
+
 #ifdef __OBJC__ 
+
 #import <Foundation/Foundation.h>
-#import <AppKit/NSDragging.h>
-typedef id <NSDraggingInfo> DragDataRef;
-@class NSPasteboard;
+
+#if PLATFORM(IOS)
+    typedef void* DragDataRef;
+#else
+    #import <AppKit/NSDragging.h>
+    typedef id <NSDraggingInfo> DragDataRef;
+    @class NSPasteboard;
+#endif
+
 #else
 typedef void* DragDataRef;
 class NSPasteboard;
 #endif
+
+
 #elif PLATFORM(QT)
 QT_BEGIN_NAMESPACE
 class QMimeData;
@@ -119,7 +129,7 @@ public:
     bool canSmartReplace() const;
     bool containsColor() const;
     bool containsFiles() const;
-#if PLATFORM(MAC)
+#if PLATFORM(MAC) && !PLATFORM(IOS)
     NSPasteboard *pasteboard() { return m_pasteboard.get(); }
 #endif
 
@@ -145,7 +155,7 @@ private:
     DragDataRef m_platformDragData;
     DragOperation m_draggingSourceOperationMask;
     DragApplicationFlags m_applicationFlags;
-#if PLATFORM(MAC)
+#if PLATFORM(MAC) && !PLATFORM(IOS)
     RetainPtr<NSPasteboard> m_pasteboard;
 #endif
 #if PLATFORM(WIN)
