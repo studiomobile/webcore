@@ -92,6 +92,29 @@ FocusController::FocusController(Page* page)
 
 void FocusController::setFocusedFrame(PassRefPtr<Frame> frame)
 {
+    ASSERT(!frame || frame->page() == m_page);
+    if (m_focusedFrame == frame || m_isChangingFocusedFrame)
+        return;
+
+    m_isChangingFocusedFrame = true;
+
+    RefPtr<Frame> oldFrame = m_focusedFrame;
+    RefPtr<Frame> newFrame = frame;
+
+    m_focusedFrame = newFrame;
+
+    // Now that the frame is updated, fire events and update the selection focused states of both frames.
+    if (oldFrame && oldFrame->view()) {
+        oldFrame->selection()->setFocused(false);
+        oldFrame->document()->dispatchWindowEvent(Event::create(eventNames().blurEvent, false, false));
+    }
+
+    if (newFrame && newFrame->view() && isFocused()) {
+        newFrame->selection()->setFocused(true);
+        newFrame->document()->dispatchWindowEvent(Event::create(eventNames().focusEvent, false, false));
+    }
+
+    m_isChangingFocusedFrame = false;
 }
 
 Frame* FocusController::focusedOrMainFrame() const
@@ -208,7 +231,6 @@ bool FocusController::advanceFocusInDocumentOrder(FocusDirection direction, Keyb
     Node* node = findFocusableNodeAcrossTreeScope(direction, currentNode ? currentNode->treeScope() : document, currentNode, event);
 
     if (!node) {
-        // Chrome doesn't want focus, so we should wrap focus.
         node = findFocusableNode(direction, m_page->mainFrame()->document(), 0, event);
         node = deepFocusableNode(direction, node, event);
 
@@ -470,24 +492,21 @@ bool FocusController::setFocusedNode(Node* node, PassRefPtr<Frame> newFocusedFra
     if (oldFocusedNode && oldFocusedNode->rootEditableElement() == oldFocusedNode && !relinquishesEditingFocus(oldFocusedNode))
         return false;
 
-    //averbin editor always NULL in iphone
-    //m_page->editorClient()->willSetInputMethodState();
+    m_page->editorClient()->willSetInputMethodState();
 
     clearSelectionIfNeeded(oldFocusedFrame.get(), newFocusedFrame.get(), node);
 
     if (!node) {
         if (oldDocument)
             oldDocument->setFocusedNode(0);
-        //averbin editor always NULL in iphone
-        //m_page->editorClient()->setInputMethodState(false);
+        m_page->editorClient()->setInputMethodState(false);
         return true;
     }
 
     RefPtr<Document> newDocument = node->document();
 
     if (newDocument && newDocument->focusedNode() == node) {
-        //averbin editor always NULL in iphone
-        //m_page->editorClient()->setInputMethodState(node->shouldUseInputMethod());
+        m_page->editorClient()->setInputMethodState(node->shouldUseInputMethod());
         return true;
     }
     
@@ -504,10 +523,8 @@ bool FocusController::setFocusedNode(Node* node, PassRefPtr<Frame> newFocusedFra
             return false;
     }
 
-    if (newDocument->focusedNode() == node) {
-        //averbin editor always NULL in iphone
-        //m_page->editorClient()->setInputMethodState(node->shouldUseInputMethod());
-    }
+    if (newDocument->focusedNode() == node)
+        m_page->editorClient()->setInputMethodState(node->shouldUseInputMethod());
 
     return true;
 }
