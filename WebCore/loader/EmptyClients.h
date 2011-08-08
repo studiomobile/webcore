@@ -200,10 +200,11 @@ public:
         *(&a) = 23;
 }
 
-    virtual void dispatchDecidePolicyForResponse(FramePolicyFunction, const ResourceResponse&, const ResourceRequest&) { 
-        int a = 1;
-        *(&a) = 23;
-}
+    virtual void dispatchDecidePolicyForResponse(FramePolicyFunction f, const ResourceResponse&, const ResourceRequest&) { 
+        (m_page->mainFrame()->loader()->policyChecker()->*f)(PolicyUse);
+    }
+    
+    
     virtual void dispatchDecidePolicyForNewWindowAction(FramePolicyFunction, const NavigationAction&, const ResourceRequest&, PassRefPtr<FormState>, const String&) {
         int a = 1;
         *(&a) = 23;
