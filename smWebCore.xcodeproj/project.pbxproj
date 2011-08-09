@@ -14672,6 +14672,54 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		DA94863513F15CBD003375FD /* NDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(SRCROOT)",
+					"$(SRCROOT)/ANGLE/usr/include",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				SDKROOT = iphoneos;
+			};
+			name = NDebug;
+		};
+		DA94863613F15CBD003375FD /* NDebug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++98";
+				DSTROOT = /tmp/smWebCore.dst;
+				EXPORTED_SYMBOLS_FILE = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "smWebCore/smWebCore-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+			};
+			name = NDebug;
+		};
 		DAE13E7B13BB52B20084005E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -14769,6 +14817,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAE13E7B13BB52B20084005E /* Debug */,
+				DA94863513F15CBD003375FD /* NDebug */,
 				DAE13E7C13BB52B20084005E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -14778,6 +14827,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAE13E7E13BB52B20084005E /* Debug */,
+				DA94863613F15CBD003375FD /* NDebug */,
 				DAE13E7F13BB52B20084005E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
