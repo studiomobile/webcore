@@ -178,12 +178,14 @@ void SimpleFontData::platformInit()
         }
 
         // Report the problem.
+#if !ERROR_DISABLED
         platformDataFontFamilyName = CTFontCopyFamilyName(m_platformData.font());
         CFStringRef initialFontFamilyName = CTFontCopyFamilyName(initialFont.get());
         LOG_ERROR("Corrupt font detected, using %@ in place of %@ located at \"%@\".",
             platformDataFontFamilyName, initialFontFamilyName, filePath);
         CFRelease(platformDataFontFamilyName);
         CFRelease(initialFontFamilyName);
+#endif
     }
 
     // If all else fails, try to set up using the system font.
