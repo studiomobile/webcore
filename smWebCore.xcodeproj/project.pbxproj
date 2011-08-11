@@ -2968,6 +2968,13 @@
 		DA7C709113BDF2DF005F519F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7C708F13BDF2DA005F519F /* CoreText.framework */; };
 		DA7C709513BDF8C7005F519F /* Console.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA7C709213BDF8B3005F519F /* Console.cpp */; };
 		DA7C709613BDF8C7005F519F /* Console.h in Headers */ = {isa = PBXBuildFile; fileRef = DA7C709313BDF8B9005F519F /* Console.h */; };
+		DA8A5C7013F3BEBC00BBB573 /* LegacyWebArchive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA8A5C6813F3BEBC00BBB573 /* LegacyWebArchive.cpp */; };
+		DA8A5C7113F3BEBC00BBB573 /* LegacyWebArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = DA8A5C6913F3BEBC00BBB573 /* LegacyWebArchive.h */; };
+		DA8A5C7213F3BEBC00BBB573 /* LegacyWebArchiveMac.mm in Sources */ = {isa = PBXBuildFile; fileRef = DA8A5C6A13F3BEBC00BBB573 /* LegacyWebArchiveMac.mm */; };
+		DA8A5C7313F3BEBC00BBB573 /* MHTMLArchive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA8A5C6C13F3BEBC00BBB573 /* MHTMLArchive.cpp */; };
+		DA8A5C7413F3BEBC00BBB573 /* MHTMLArchive.h in Headers */ = {isa = PBXBuildFile; fileRef = DA8A5C6D13F3BEBC00BBB573 /* MHTMLArchive.h */; };
+		DA8A5C7513F3BEBC00BBB573 /* MHTMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA8A5C6E13F3BEBC00BBB573 /* MHTMLParser.cpp */; };
+		DA8A5C7613F3BEBC00BBB573 /* MHTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = DA8A5C6F13F3BEBC00BBB573 /* MHTMLParser.h */; };
 		DAC7534D13EA7F7E0066188B /* DragDataSM.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAC7534B13EA7F7E0066188B /* DragDataSM.mm */; };
 		DAC7534E13EA7F7E0066188B /* DragImageSM.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAC7534C13EA7F7E0066188B /* DragImageSM.mm */; };
 		DAD8AB1013C326D700041350 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD8AB0F13C326D700041350 /* OpenGLES.framework */; };
@@ -6757,6 +6764,13 @@
 		DA7C709213BDF8B3005F519F /* Console.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Console.cpp; sourceTree = "<group>"; };
 		DA7C709313BDF8B9005F519F /* Console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Console.h; sourceTree = "<group>"; };
 		DA7C709413BDF8C2005F519F /* Console.idl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Console.idl; sourceTree = "<group>"; };
+		DA8A5C6813F3BEBC00BBB573 /* LegacyWebArchive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LegacyWebArchive.cpp; sourceTree = "<group>"; };
+		DA8A5C6913F3BEBC00BBB573 /* LegacyWebArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyWebArchive.h; sourceTree = "<group>"; };
+		DA8A5C6A13F3BEBC00BBB573 /* LegacyWebArchiveMac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LegacyWebArchiveMac.mm; sourceTree = "<group>"; };
+		DA8A5C6C13F3BEBC00BBB573 /* MHTMLArchive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MHTMLArchive.cpp; sourceTree = "<group>"; };
+		DA8A5C6D13F3BEBC00BBB573 /* MHTMLArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTMLArchive.h; sourceTree = "<group>"; };
+		DA8A5C6E13F3BEBC00BBB573 /* MHTMLParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MHTMLParser.cpp; sourceTree = "<group>"; };
+		DA8A5C6F13F3BEBC00BBB573 /* MHTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTMLParser.h; sourceTree = "<group>"; };
 		DAC7534B13EA7F7E0066188B /* DragDataSM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DragDataSM.mm; sourceTree = "<group>"; };
 		DAC7534C13EA7F7E0066188B /* DragImageSM.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DragImageSM.mm; sourceTree = "<group>"; };
 		DAD8AB0F13C326D700041350 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -11137,6 +11151,27 @@
 			path = mac;
 			sourceTree = "<group>";
 		};
+		DA8A5C6713F3BEBC00BBB573 /* cf */ = {
+			isa = PBXGroup;
+			children = (
+				DA8A5C6813F3BEBC00BBB573 /* LegacyWebArchive.cpp */,
+				DA8A5C6913F3BEBC00BBB573 /* LegacyWebArchive.h */,
+				DA8A5C6A13F3BEBC00BBB573 /* LegacyWebArchiveMac.mm */,
+			);
+			path = cf;
+			sourceTree = "<group>";
+		};
+		DA8A5C6B13F3BEBC00BBB573 /* mhtml */ = {
+			isa = PBXGroup;
+			children = (
+				DA8A5C6C13F3BEBC00BBB573 /* MHTMLArchive.cpp */,
+				DA8A5C6D13F3BEBC00BBB573 /* MHTMLArchive.h */,
+				DA8A5C6E13F3BEBC00BBB573 /* MHTMLParser.cpp */,
+				DA8A5C6F13F3BEBC00BBB573 /* MHTMLParser.h */,
+			);
+			path = mhtml;
+			sourceTree = "<group>";
+		};
 		DAD9AF8313C45D4300B67797 /* mac */ = {
 			isa = PBXGroup;
 			children = (
@@ -11177,6 +11212,8 @@
 		DAD9AFAB13C4B88800B67797 /* archive */ = {
 			isa = PBXGroup;
 			children = (
+				DA8A5C6713F3BEBC00BBB573 /* cf */,
+				DA8A5C6B13F3BEBC00BBB573 /* mhtml */,
 				DAD9AFAC13C4B88900B67797 /* Archive.cpp */,
 				DAD9AFAD13C4B88900B67797 /* Archive.h */,
 				DAD9AFAE13C4B88900B67797 /* ArchiveFactory.cpp */,
@@ -13217,6 +13254,9 @@
 				DA5BBE3413D8993400121D95 /* SVGZoomEvent.h in Headers */,
 				DA07472E13E2C36200C5BFD7 /* FrameNetworkingContextSM.h in Headers */,
 				DA0C6EB913EA87B9001E1E1C /* ClipboardSM.h in Headers */,
+				DA8A5C7113F3BEBC00BBB573 /* LegacyWebArchive.h in Headers */,
+				DA8A5C7413F3BEBC00BBB573 /* MHTMLArchive.h in Headers */,
+				DA8A5C7613F3BEBC00BBB573 /* MHTMLParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -14666,6 +14706,10 @@
 				DA0C6EB313EA834B001E1E1C /* DragControllerSM.mm in Sources */,
 				DA0C6EB613EA842A001E1E1C /* EventHandlerSM.mm in Sources */,
 				DA0C6EBA13EA87B9001E1E1C /* ClipboardSM.mm in Sources */,
+				DA8A5C7013F3BEBC00BBB573 /* LegacyWebArchive.cpp in Sources */,
+				DA8A5C7213F3BEBC00BBB573 /* LegacyWebArchiveMac.mm in Sources */,
+				DA8A5C7313F3BEBC00BBB573 /* MHTMLArchive.cpp in Sources */,
+				DA8A5C7513F3BEBC00BBB573 /* MHTMLParser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
