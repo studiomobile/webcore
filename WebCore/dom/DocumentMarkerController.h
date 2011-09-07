@@ -47,7 +47,7 @@ public:
     ~DocumentMarkerController() { detach(); }
 
     void detach();
-    void addMarker(Range*, DocumentMarker::MarkerType);
+    void addMarker(Range*, DocumentMarker::MarkerType, Color = Color(Color::transparent));
     void addMarker(Range*, DocumentMarker::MarkerType, const String& description);
     void addTextMatchMarker(Range*, bool activeMatch);
 

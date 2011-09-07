@@ -100,7 +100,7 @@ void SVGInlineFlowBox::computeTextMatchMarkerRectForRenderer(RenderSVGInlineText
         DocumentMarker* marker = *markerIt;
 
         // SVG is only interessted in the TextMatch marker, for now.
-        if (marker->type() != DocumentMarker::TextMatch)
+        if ((marker->type() != DocumentMarker::TextMatch) && (marker->type() != DocumentMarker::AnnotationHighlight))
             continue;
 
         FloatRect markerRect;

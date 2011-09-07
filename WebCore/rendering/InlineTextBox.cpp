@@ -871,10 +871,9 @@ void InlineTextBox::paintDecoration(GraphicsContext* context, const FloatPoint& 
             localOrigin.move(m_logicalWidth - width, 0);
     }
     
-    // Get the text decoration colors.
     Color underline, overline, linethrough;
     renderer()->getTextDecorationColors(deco, underline, overline, linethrough, true);
-    
+
     // Use a special function for underlines to get the positioning exactly right.
     bool isPrinting = textRenderer()->document()->printing();
     context->setStrokeThickness(1.0f); // FIXME: We should improve this rule and not always just assume 1.
@@ -1028,33 +1027,80 @@ void InlineTextBox::paintSpellingOrGrammarMarker(GraphicsContext* pt, const Floa
     pt->drawLineForTextChecking(FloatPoint(boxOrigin.x() + start, boxOrigin.y() + underlineOffset), width, textCheckingLineStyleForMarkerType(marker->type()));
 }
 
-void InlineTextBox::paintTextMatchMarker(GraphicsContext* pt, const FloatPoint& boxOrigin, DocumentMarker* marker, RenderStyle* style, const Font& font)
-{
-    // Use same y positioning and height as for selection, so that when the selection and this highlight are on
-    // the same word there are no pieces sticking out.
-    int deltaY = renderer()->style()->isFlippedLinesWritingMode() ? selectionBottom() - logicalBottom() : logicalTop() - selectionTop();
-    int selHeight = selectionHeight();
-
-    int sPos = max(marker->startOffset() - m_start, (unsigned)0);
-    int ePos = min(marker->endOffset() - m_start, (unsigned)m_len);
-    TextRun run = constructTextRun(style, font);
-
-    // Always compute and store the rect associated with this marker. The computed rect is in absolute coordinates.
-    IntRect markerRect = enclosingIntRect(font.selectionRectForText(run, IntPoint(x(), selectionTop()), selHeight, sPos, ePos));
-    markerRect = renderer()->localToAbsoluteQuad(FloatRect(markerRect)).enclosingBoundingBox();
-    toRenderedDocumentMarker(marker)->setRenderedRect(markerRect);
-    
-    // Optionally highlight the text
-    if (renderer()->frame()->editor()->markedTextMatchesAreHighlighted()) {
-        Color color = marker->activeMatch() ?
-            renderer()->theme()->platformActiveTextSearchHighlightColor() :
-            renderer()->theme()->platformInactiveTextSearchHighlightColor();
-        GraphicsContextStateSaver stateSaver(*pt);
-        updateGraphicsContext(pt, color, color, 0, style->colorSpace());  // Don't draw text at all!
-        pt->clip(FloatRect(boxOrigin.x(), boxOrigin.y() - deltaY, m_logicalWidth, selHeight));
-        pt->drawHighlightForText(font, run, FloatPoint(boxOrigin.x(), boxOrigin.y() - deltaY), selHeight, color, style->colorSpace(), sPos, ePos);
+    void InlineTextBox::paintTextMatchMarker(GraphicsContext* pt, const FloatPoint& boxOrigin, DocumentMarker* marker, RenderStyle* style, const Font& font)
+    {
+        bool paint = renderer()->frame()->editor()->markedTextMatchesAreHighlighted();
+        Color color = !paint ? Color(Color::transparent) : 
+                               (marker->activeMatch() ? renderer()->theme()->platformActiveTextSearchHighlightColor() :
+                                                        renderer()->theme()->platformInactiveTextSearchHighlightColor());
+        paintHighlightMarker(pt, boxOrigin, marker, style, font, paint, color);
     }
-}
+    
+    void InlineTextBox::paintHighlightMarker(GraphicsContext* pt, const FloatPoint& boxOrigin, DocumentMarker* marker, RenderStyle* style, const Font& font, bool paint, Color color)
+    {
+        // Use same y positioning and height as for selection, so that when the selection and this highlight are on
+        // the same word there are no pieces sticking out.
+        int deltaY = renderer()->style()->isFlippedLinesWritingMode() ? selectionBottom() - logicalBottom() : logicalTop() - selectionTop();
+        int selHeight = selectionHeight();
+        
+        int sPos = max(marker->startOffset() - m_start, (unsigned)0);
+        int ePos = min(marker->endOffset() - m_start, (unsigned)m_len);
+        TextRun run = constructTextRun(style, font);
+        
+        // Always compute and store the rect associated with this marker. The computed rect is in absolute coordinates.
+        IntRect markerRect = enclosingIntRect(font.selectionRectForText(run, IntPoint(x(), selectionTop()), selHeight, sPos, ePos));
+        markerRect = renderer()->localToAbsoluteQuad(FloatRect(markerRect)).enclosingBoundingBox();
+        toRenderedDocumentMarker(marker)->setRenderedRect(markerRect);
+
+        if (paint) {
+            GraphicsContextStateSaver stateSaver(*pt);
+            updateGraphicsContext(pt, color, color, 0, style->colorSpace());  // Don't draw text at all!
+//            pt->clip(FloatRect(boxOrigin.x(), boxOrigin.y() - deltaY, m_logicalWidth, selHeight));
+            pt->drawHighlightForText(font, run, FloatPoint(boxOrigin.x(), boxOrigin.y() - deltaY), selHeight, color, style->colorSpace(), sPos, ePos);
+        }
+    }
+
+    void InlineTextBox::paintTextDecorationMarker(GraphicsContext* pt, const FloatPoint& boxOrigin, DocumentMarker* marker, RenderStyle* style, const Font& font, int deco, Color color)
+    {
+        bool isPrinting = textRenderer()->document()->printing();
+        
+        int sPos = max(marker->startOffset() - m_start, (unsigned)0);
+        int ePos = min(marker->endOffset() - m_start, (unsigned)m_len);
+        TextRun run = constructTextRun(style, font);
+        
+        int selHeight = selectionHeight();
+        
+        // Always compute and store the rect associated with this marker. The computed rect is in absolute coordinates.
+        IntRect markerRect = enclosingIntRect(font.selectionRectForText(run, IntPoint(x(), selectionTop()), selHeight, sPos, ePos));
+        markerRect = renderer()->localToAbsoluteQuad(FloatRect(markerRect)).enclosingBoundingBox();
+        toRenderedDocumentMarker(marker)->setRenderedRect(markerRect);
+
+        // paint
+        GraphicsContextStateSaver stateSaver(*pt);
+        updateGraphicsContext(pt, color, color, 1.0f, style->colorSpace());  // Don't draw text at all!
+        
+        int baseline = style->fontMetrics().ascent();
+        
+        // copy/paste from paintDecoration
+        if (deco & UNDERLINE) {
+            pt->setStrokeColor(color, style->colorSpace());
+            pt->setStrokeStyle(SolidStroke);
+            // Leave one pixel of white between the baseline and the underline.
+            pt->drawLineForText(FloatPoint(markerRect.x(), boxOrigin.y() + baseline + 1), markerRect.width(), isPrinting);
+        }
+        
+        if (deco & OVERLINE) {
+            pt->setStrokeColor(color, style->colorSpace());
+            pt->setStrokeStyle(SolidStroke);
+            pt->drawLineForText(FloatPoint(markerRect.x(), boxOrigin.y()), markerRect.width(), isPrinting);
+        }
+        
+        if (deco & LINE_THROUGH) {
+            pt->setStrokeColor(color, style->colorSpace());
+            pt->setStrokeStyle(SolidStroke);
+            pt->drawLineForText(FloatPoint(markerRect.x(), boxOrigin.y() + 2 * baseline / 3), markerRect.width(), isPrinting);
+        }
+    }
 
 void InlineTextBox::computeRectForReplacementMarker(DocumentMarker* marker, RenderStyle* style, const Font& font)
 {
@@ -1092,10 +1138,13 @@ void InlineTextBox::paintDocumentMarkers(GraphicsContext* pt, const FloatPoint& 
             case DocumentMarker::Spelling:
             case DocumentMarker::CorrectionIndicator:
             case DocumentMarker::Replacement:
+            case DocumentMarker::AnnotationCrossOut:
+            case DocumentMarker::AnnotationUnderline:
                 if (background)
                     continue;
                 break;
             case DocumentMarker::TextMatch:
+            case DocumentMarker::AnnotationHighlight:
                 if (!background)
                     continue;
                 break;
@@ -1122,6 +1171,15 @@ void InlineTextBox::paintDocumentMarkers(GraphicsContext* pt, const FloatPoint& 
                 break;
             case DocumentMarker::TextMatch:
                 paintTextMatchMarker(pt, boxOrigin, marker, style, font);
+                break;
+            case DocumentMarker::AnnotationHighlight:
+                paintHighlightMarker(pt, boxOrigin, marker, style, font, true, marker->annotationColor());
+                break;
+            case DocumentMarker::AnnotationCrossOut: 
+                paintTextDecorationMarker(pt, boxOrigin, marker, style, font, LINE_THROUGH, marker->annotationColor());
+                break;
+            case DocumentMarker::AnnotationUnderline: 
+                paintTextDecorationMarker(pt, boxOrigin, marker, style, font, UNDERLINE, marker->annotationColor());
                 break;
             case DocumentMarker::CorrectionIndicator:
                 paintSpellingOrGrammarMarker(pt, boxOrigin, marker, style, font, false);

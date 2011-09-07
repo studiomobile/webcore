@@ -25,6 +25,7 @@
 
 #include "PlatformString.h"
 #include <wtf/Forward.h>
+#include "Color.h"
 
 
 namespace WebCore {
@@ -59,7 +60,12 @@ public:
         // range that bears this marker. In some platforms, if the user later inserts the same original
         // word again at this position, it will not be autocorrected again. The description of this
         // marker is the original word before autocorrection was applied.
-        DeletedAutocorrection = 1 << 8
+        DeletedAutocorrection = 1 << 8,
+        
+        // SMWebKit
+        AnnotationHighlight = 1 << 9,
+        AnnotationUnderline = 1 << 10,
+        AnnotationCrossOut = 1 << 11
     };
 
     class MarkerTypes {
@@ -81,13 +87,13 @@ public:
     class AllMarkers : public MarkerTypes {
     public:
         AllMarkers()
-            : MarkerTypes(Spelling | Grammar | TextMatch | Replacement | CorrectionIndicator | RejectedCorrection | Autocorrected | SpellCheckingExemption | DeletedAutocorrection)
+            : MarkerTypes(Spelling | Grammar | TextMatch | Replacement | CorrectionIndicator | RejectedCorrection | Autocorrected | SpellCheckingExemption | DeletedAutocorrection | AnnotationHighlight | AnnotationUnderline | AnnotationCrossOut)
         {
         }
     };
 
     DocumentMarker();
-    DocumentMarker(MarkerType, unsigned startOffset, unsigned endOffset);
+    DocumentMarker(MarkerType, unsigned startOffset, unsigned endOffset, Color = Color(Color::transparent));
     DocumentMarker(MarkerType, unsigned startOffset, unsigned endOffset, const String& description);
     DocumentMarker(unsigned startOffset, unsigned endOffset, bool activeMatch);
 
@@ -107,6 +113,9 @@ public:
     void setEndOffset(unsigned offset) { m_endOffset = offset; }
     void shiftOffsets(int delta);
 
+    Color annotationColor() { return m_annotationColor; }
+    void setAnnotationColor(Color c) { m_annotationColor = c; }
+    
     bool operator==(const DocumentMarker& o) const
     {
         return type() == o.type() && startOffset() == o.startOffset() && endOffset() == o.endOffset();
@@ -123,6 +132,7 @@ private:
     unsigned m_endOffset;
     String m_description;
     bool m_activeMatch;
+    Color m_annotationColor;
 };
 
 inline DocumentMarker::DocumentMarker()
@@ -130,8 +140,8 @@ inline DocumentMarker::DocumentMarker()
 {
 }
 
-inline DocumentMarker::DocumentMarker(MarkerType type, unsigned startOffset, unsigned endOffset)
-    : m_type(type), m_startOffset(startOffset), m_endOffset(endOffset), m_activeMatch(false)
+inline DocumentMarker::DocumentMarker(MarkerType type, unsigned startOffset, unsigned endOffset, Color c)
+    : m_type(type), m_startOffset(startOffset), m_endOffset(endOffset), m_activeMatch(false), m_annotationColor(c)
 {
 }
 

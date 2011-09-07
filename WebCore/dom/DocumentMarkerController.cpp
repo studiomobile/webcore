@@ -69,14 +69,14 @@ void DocumentMarkerController::addMarker(Range* range, DocumentMarker::MarkerTyp
     }
 }
 
-void DocumentMarkerController::addMarker(Range* range, DocumentMarker::MarkerType type)
+void DocumentMarkerController::addMarker(Range* range, DocumentMarker::MarkerType type, Color c)
 {
     // Use a TextIterator to visit the potentially multiple nodes the range covers.
     for (TextIterator markedText(range); !markedText.atEnd(); markedText.advance()) {
         RefPtr<Range> textPiece = markedText.range();
         int exception = 0;
         addMarker(textPiece->startContainer(exception),
-                  DocumentMarker(type, textPiece->startOffset(exception), textPiece->endOffset(exception)));
+                  DocumentMarker(type, textPiece->startOffset(exception), textPiece->endOffset(exception), c));
     }
 
 }
@@ -103,6 +103,7 @@ void DocumentMarkerController::addTextMatchMarker(Range* range, bool activeMatch
     }
 }
 
+    
 void DocumentMarkerController::removeMarkers(Range* range, DocumentMarker::MarkerTypes markerTypes, RemovePartiallyOverlappingMarkerOrNot shouldRemovePartiallyOverlappingMarker)
 {
     for (TextIterator markedText(range); !markedText.atEnd(); markedText.advance()) {

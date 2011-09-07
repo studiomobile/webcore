@@ -177,6 +177,8 @@ private:
     void paintSelection(GraphicsContext*, const FloatPoint& boxOrigin, RenderStyle*, const Font&);
     void paintSpellingOrGrammarMarker(GraphicsContext*, const FloatPoint& boxOrigin, DocumentMarker*, RenderStyle*, const Font&, bool grammar);
     void paintTextMatchMarker(GraphicsContext*, const FloatPoint& boxOrigin, DocumentMarker*, RenderStyle*, const Font&);
+    void paintHighlightMarker(GraphicsContext* pt, const FloatPoint& boxOrigin, DocumentMarker* marker, RenderStyle* style, const Font& font, bool, Color);
+    void paintTextDecorationMarker(GraphicsContext* pt, const FloatPoint& boxOrigin, DocumentMarker* marker, RenderStyle* style, const Font& font, int deco, Color color);
     void computeRectForReplacementMarker(DocumentMarker*, RenderStyle*, const Font&);
 
     TextRun::ExpansionBehavior expansionBehavior() const
