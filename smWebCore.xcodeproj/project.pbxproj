@@ -3000,7 +3000,6 @@
 		DAD9AFBF13C4BBFD00B67797 /* WebCoreNSStringExtras.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAD9AFBD13C4BBFC00B67797 /* WebCoreNSStringExtras.mm */; };
 		DAD9AFC113C4D12600B67797 /* HostWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAD9AFC013C4D11100B67797 /* HostWindow.mm */; };
 		DAE13E7713BB52B20084005E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE13E7613BB52B20084005E /* Foundation.framework */; };
-		DAE171FB13BB53720084005E /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE171FA13BB53720084005E /* libicucore.dylib */; };
 		DAE171FD13BB537C0084005E /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE171FC13BB537C0084005E /* libxml2.dylib */; };
 		DAE172AD13BB59540084005E /* Alignment.h in Headers */ = {isa = PBXBuildFile; fileRef = DAE171FF13BB59530084005E /* Alignment.h */; };
 		DAE172AE13BB59540084005E /* AlwaysInline.h in Headers */ = {isa = PBXBuildFile; fileRef = DAE1720013BB59530084005E /* AlwaysInline.h */; };
@@ -3447,6 +3446,7 @@
 		DA21E32C13D892D500596A5D /* SVGElementFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGElementFactory.h; sourceTree = "<group>"; };
 		DA21E32D13D892D500596A5D /* SVGNames.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SVGNames.cpp; sourceTree = "<group>"; };
 		DA21E32E13D892D500596A5D /* SVGNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGNames.h; sourceTree = "<group>"; };
+		DA56105B1434C158005F36F3 /* BaseConfig.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = BaseConfig.xcconfig; sourceTree = "<group>"; };
 		DA5BBADB13D8992D00121D95 /* SMILTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMILTime.cpp; sourceTree = "<group>"; };
 		DA5BBADC13D8992D00121D95 /* SMILTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMILTime.h; sourceTree = "<group>"; };
 		DA5BBADD13D8992D00121D95 /* SMILTimeContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMILTimeContainer.cpp; sourceTree = "<group>"; };
@@ -6798,7 +6798,6 @@
 		DAE13E7313BB52B20084005E /* libsmWebCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsmWebCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAE13E7613BB52B20084005E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DAE13E7A13BB52B20084005E /* smWebCore-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "smWebCore-Prefix.pch"; sourceTree = "<group>"; };
-		DAE171FA13BB53720084005E /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		DAE171FC13BB537C0084005E /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		DAE171FF13BB59530084005E /* Alignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alignment.h; sourceTree = "<group>"; };
 		DAE1720013BB59530084005E /* AlwaysInline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlwaysInline.h; sourceTree = "<group>"; };
@@ -6983,7 +6982,6 @@
 				DA77FDAF13BE067B0044B12E /* MobileCoreServices.framework in Frameworks */,
 				DA7C709013BDF2DF005F519F /* CoreGraphics.framework in Frameworks */,
 				DAE171FD13BB537C0084005E /* libxml2.dylib in Frameworks */,
-				DAE171FB13BB53720084005E /* libicucore.dylib in Frameworks */,
 				DAE13E7713BB52B20084005E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -11257,7 +11255,6 @@
 				DA7C708E13BDF2D6005F519F /* CoreGraphics.framework */,
 				DA7C708F13BDF2DA005F519F /* CoreText.framework */,
 				DAE171FC13BB537C0084005E /* libxml2.dylib */,
-				DAE171FA13BB53720084005E /* libicucore.dylib */,
 				7951CD0C13C6BCDA0078EB5F /* libz.dylib */,
 				DAE13E7613BB52B20084005E /* Foundation.framework */,
 				798D612713C52F9D00BA997E /* UIKit.framework */,
@@ -11281,6 +11278,7 @@
 			isa = PBXGroup;
 			children = (
 				DAE13E7A13BB52B20084005E /* smWebCore-Prefix.pch */,
+				DA56105B1434C158005F36F3 /* BaseConfig.xcconfig */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -14718,6 +14716,7 @@
 /* Begin XCBuildConfiguration section */
 		DA94863513F15CBD003375FD /* NDebug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA56105B1434C158005F36F3 /* BaseConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -14736,6 +14735,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					"${inherited}",
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(SRCROOT)",
 					"$(SRCROOT)/ANGLE/usr/include",
@@ -14766,6 +14766,7 @@
 		};
 		DAE13E7B13BB52B20084005E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA56105B1434C158005F36F3 /* BaseConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -14784,6 +14785,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					"${inherited}",
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(SRCROOT)",
 					"$(SRCROOT)/ANGLE/usr/include",
@@ -14795,6 +14797,7 @@
 		};
 		DAE13E7C13BB52B20084005E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA56105B1434C158005F36F3 /* BaseConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -14806,6 +14809,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
+					"${inherited}",
 					"$(SDKROOT)/usr/include/libxml2",
 					"$(SRCROOT)",
 					"$(SRCROOT)/ANGLE/usr/include",

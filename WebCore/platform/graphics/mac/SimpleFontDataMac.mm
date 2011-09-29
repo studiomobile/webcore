@@ -230,7 +230,9 @@ void SimpleFontData::platformInit()
         descent *= 2.f;
     }
 #endif
-    CFRelease(platformDataFontFamilyName);
+    if (platformDataFontFamilyName) {
+        CFRelease(platformDataFontFamilyName);
+    }
 
     // Compute and store line spacing, before the line metrics hacks are applied.
     m_fontMetrics.setLineSpacing(lroundf(ascent) + lroundf(descent) + lroundf(lineGap));

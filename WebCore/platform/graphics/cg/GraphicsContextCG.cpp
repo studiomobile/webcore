@@ -1151,7 +1151,14 @@ void GraphicsContext::setCTM(const AffineTransform& transform)
 {
     if (paintingDisabled())
         return;
-    CGContextSetCTM(platformContext(), transform);
+    
+    CGContextRef ctx = platformContext();
+
+    // following code roughly (!) emulates behavior of a private function CGContextSetCTM(ctx, transform)
+    CGAffineTransform inverseCurrentT = CGAffineTransformInvert(CGContextGetCTM(ctx)); // X^(-1)
+    CGContextConcatCTM(ctx, inverseCurrentT); // ~ CGContextSetCTM(ctx, CGAffineTransformIdentity)
+    CGContextConcatCTM(ctx, transform); // ~ CGContextSetCTM(ctx, transform) since CGContextGetCTM(ctx) ==  CGAffineTransformIdentity
+    
     m_data->setCTM(transform);
     m_data->m_userToDeviceTransformKnownToBeIdentity = false;
 }

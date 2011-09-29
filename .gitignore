@@ -25,3 +25,6 @@ ID
 .emacs.desktop
 
 testHtml/*
+
+# user config
+**/User.xcconfig
