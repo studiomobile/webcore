@@ -172,4 +172,30 @@ namespace WebCore {
         fontDescription = *cachedDesc;
     }
 
+    
+    Color RenderThemeSM::platformActiveSelectionBackgroundColor() const
+    {
+        return Color(181, 213, 255);
+    }
+    
+    Color RenderThemeSM::platformInactiveSelectionBackgroundColor() const
+    {
+        return Color(212, 212, 212);
+    }
+
+    
+    Color RenderThemeSM::platformActiveSelectionForegroundColor() const
+    {
+        // relying on default behavior to use text color if return value of this one is invalid
+        // e.g. InlineTextBox
+        return Color(); 
+    }
+    
+    Color RenderThemeSM::platformInactiveSelectionForegroundColor() const
+    {
+        // relying on default behavior to use text color if return value of this one is invalid
+        // e.g. InlineTextBox
+        return Color(); 
+    }
+
 } // namespace WebCore

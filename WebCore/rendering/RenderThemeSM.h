@@ -18,6 +18,11 @@ namespace WebCore {
         static PassRefPtr<RenderTheme> create();  
         
         virtual void systemFont(int cssValueId, FontDescription&) const;
+        
+        virtual Color platformActiveSelectionBackgroundColor() const;
+        virtual Color platformInactiveSelectionBackgroundColor() const;
+        virtual Color platformActiveSelectionForegroundColor() const;
+        virtual Color platformInactiveSelectionForegroundColor() const;
     };
 }
 
