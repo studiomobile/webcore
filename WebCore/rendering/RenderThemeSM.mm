@@ -60,11 +60,21 @@ using namespace std;
 
 
 namespace WebCore {
-    
+
+    static Color selectionBackgroundColor = Color(181, 213, 255);
+
+
     PassRefPtr<RenderTheme> RenderTheme::themeForPage(Page*)
     {
-        static RenderTheme* rt = RenderThemeSM::create().releaseRef();
+        PassRefPtr<RenderTheme> rt = RenderThemeSM::create();
+        static_cast<RenderThemeSM*>(rt.get())->setPlatformActiveSelectionBackgroundColor(selectionBackgroundColor);
         return rt;
+    }
+    
+    
+    void RenderThemeSM::setDefaultSelectionBackgroundColor(Color c)
+    {
+        selectionBackgroundColor = c;
     }
     
     
@@ -173,9 +183,14 @@ namespace WebCore {
     }
 
     
+    void RenderThemeSM::setPlatformActiveSelectionBackgroundColor(Color c)
+    {
+        m_selectionBackgroundColor = c;
+    }
+    
     Color RenderThemeSM::platformActiveSelectionBackgroundColor() const
     {
-        return Color(181, 213, 255);
+        return m_selectionBackgroundColor;
     }
     
     Color RenderThemeSM::platformInactiveSelectionBackgroundColor() const

@@ -15,15 +15,22 @@
 namespace WebCore {
     class RenderThemeSM : public RenderTheme {
     public:
+        static void setDefaultSelectionBackgroundColor(Color c);
+
         static PassRefPtr<RenderTheme> create();  
         
         virtual void systemFont(int cssValueId, FontDescription&) const;
         
+        void setPlatformActiveSelectionBackgroundColor(Color c);
         virtual Color platformActiveSelectionBackgroundColor() const;
         virtual Color platformInactiveSelectionBackgroundColor() const;
         virtual Color platformActiveSelectionForegroundColor() const;
         virtual Color platformInactiveSelectionForegroundColor() const;
+        
+    private:
+        Color m_selectionBackgroundColor;
     };
+    
 }
 
 #endif
