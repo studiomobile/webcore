@@ -152,7 +152,7 @@ bool FontPlatformData::roundsGlyphAdvances() const
 
 bool FontPlatformData::allowsLigatures() const
 {
-    CFCharacterSetRef charset = CTFontCopyCharacterSet(m_font);
+    CFCharacterSetRef charset = CTFontCopyCharacterSet(ctFont());
     BOOL result = !CFCharacterSetIsCharacterMember(charset, 'a');
     CFRelease(charset);
     return result;
