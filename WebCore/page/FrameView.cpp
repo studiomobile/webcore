@@ -2391,7 +2391,8 @@ void FrameView::paintContents(GraphicsContext* p, const IntRect& rect)
         fillWithRed = false; // Selections are transparent, don't fill with red.
     else if (m_nodeToDraw)
         fillWithRed = false; // Element images are transparent, don't fill with red.
-    p->fillRect(rect, Color(0xFF, 0, 0), ColorSpaceDeviceRGB);
+    else 
+        fillWithRed = true;
 #endif
 
     if (fillWithRed)
