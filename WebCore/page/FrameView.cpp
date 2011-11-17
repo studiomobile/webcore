@@ -2378,7 +2378,9 @@ void FrameView::paintContents(GraphicsContext* p, const IntRect& rect)
     Document* document = m_frame->document();
 
 #ifndef NDEBUG
-    bool fillWithRed;
+    bool fillWithRed = false;
+
+#ifdef SM_DEBUG_RED_BACKGROUND
     if (document->printing())
         fillWithRed = false; // Printing, don't fill with red (can't remember why).
     else if (m_frame->ownerElement())
@@ -2389,12 +2391,12 @@ void FrameView::paintContents(GraphicsContext* p, const IntRect& rect)
         fillWithRed = false; // Selections are transparent, don't fill with red.
     else if (m_nodeToDraw)
         fillWithRed = false; // Element images are transparent, don't fill with red.
-    else
-        fillWithRed = true;
-    
+    p->fillRect(rect, Color(0xFF, 0, 0), ColorSpaceDeviceRGB);
+#endif
+
     if (fillWithRed)
         p->fillRect(rect, Color(0xFF, 0, 0), ColorSpaceDeviceRGB);
-#endif
+#endif // NDEBUG
 
     bool isTopLevelPainter = !sCurrentPaintTimeStamp;
     if (isTopLevelPainter)
