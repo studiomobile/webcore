@@ -6068,11 +6068,19 @@ void RenderBlock::adjustLinePositionForPagination(RootInlineBox* lineBox, int& d
         layoutState->m_columnInfo->updateMinimumColumnHeight(lineHeight);
     logicalOffset += delta;
     lineBox->setPaginationStrut(0);
-    if (!pageLogicalHeight || lineHeight > pageLogicalHeight)
+
+    if (!pageLogicalHeight)
         return;
+    
     IntSize offsetDelta = layoutState->m_layoutOffset - layoutState->m_pageOffset;
     int offset = isHorizontalWritingMode() ? offsetDelta.height() : offsetDelta.width();
-    int remainingLogicalHeight = pageLogicalHeight - (offset + logicalOffset) % pageLogicalHeight;
+    int totalOffset = (offset + logicalOffset) % pageLogicalHeight;
+    
+    if (!totalOffset) {
+        return;
+    }
+
+    int remainingLogicalHeight = pageLogicalHeight - totalOffset;
     if (remainingLogicalHeight < lineHeight) {
         int totalLogicalHeight = lineHeight + max(0, logicalOffset);
         if (lineBox == firstRootBox() && totalLogicalHeight < pageLogicalHeight && !isPositioned() && !isTableCell())
