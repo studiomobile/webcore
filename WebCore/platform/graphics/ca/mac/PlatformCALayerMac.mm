@@ -89,6 +89,25 @@ static double mediaTimeToCurrentTime(CFTimeInterval t)
 
 @end
 
+
+static SEL SelectorFromStrings(const char* firstHalf, const char* secondHalf) {
+    char selStr[100];
+    selStr[0] = 0;
+    strcat(selStr, firstHalf);
+    strcat(selStr, secondHalf);
+    SEL selector = NSSelectorFromString([NSString stringWithCString:selStr encoding:NSASCIIStringEncoding]);
+    return selector;
+}
+
+
+static NSInvocation *HiddenInvocation(const char *firstSelPart, const char *secondSelPart, const char *methodSignature) {
+    NSInvocation *inv = [NSInvocation invocationWithMethodSignature:[NSMethodSignature signatureWithObjCTypes:methodSignature]];
+    inv.selector = SelectorFromStrings(firstSelPart, secondSelPart);
+    return inv;
+}
+
+
+
 @interface CALayer(Private)
 - (void)setContentsChanged;
 #if !defined(BUILDING_ON_LEOPARD) && !defined(BUILDING_ON_SNOW_LEOPARD)
@@ -255,8 +274,14 @@ void PlatformCALayer::setNeedsDisplay(const FloatRect* dirtyRect)
     
 void PlatformCALayer::setContentsChanged()
 {
+    NSInvocation *inv = nil;
+    if (!inv) {
+        inv = [HiddenInvocation("setCo", "ntentsChanged", "v@:") retain];
+    }
+    
     BEGIN_BLOCK_OBJC_EXCEPTIONS
-    [m_layer.get() setContentsChanged];
+    [inv invokeWithTarget:m_layer.get()];
+//    [m_layer.get() setContentsChanged];
     END_BLOCK_OBJC_EXCEPTIONS
 }
 
@@ -559,7 +584,18 @@ void PlatformCALayer::setMasksToBounds(bool value)
 bool PlatformCALayer::acceleratesDrawing() const
 {
 #if !defined(BUILDING_ON_LEOPARD) && !defined(BUILDING_ON_SNOW_LEOPARD)
-    return [m_layer.get() acceleratesDrawing];
+    NSInvocation *inv = nil;
+    if (!inv) {
+        NSString *sigNSString = [NSString stringWithFormat:@"%@@:", [NSString stringWithCString:@encode(BOOL) encoding:NSASCIIStringEncoding]];
+        const char *sig = [sigNSString cStringUsingEncoding:NSASCIIStringEncoding];
+        inv = [HiddenInvocation("accel", "eratesDrawing", sig) retain];
+    }
+
+    [inv invokeWithTarget:m_layer.get()];
+    BOOL result;
+    [inv getReturnValue:&result];
+    return result;
+//    return [m_layer.get() acceleratesDrawing];
 #else
     return false;
 #endif
@@ -568,8 +604,19 @@ bool PlatformCALayer::acceleratesDrawing() const
 void PlatformCALayer::setAcceleratesDrawing(bool acceleratesDrawing)
 {
 #if !defined(BUILDING_ON_LEOPARD) && !defined(BUILDING_ON_SNOW_LEOPARD)
+    NSInvocation *inv = nil;
+    if (!inv) {
+        NSString *sigNSString = [NSString stringWithFormat:@"v@:%@", [NSString stringWithCString:@encode(BOOL) encoding:NSASCIIStringEncoding]];
+        const char *sig = [sigNSString cStringUsingEncoding:NSASCIIStringEncoding];
+        inv = [HiddenInvocation("setAccel", "eratesDrawing:", sig) retain];
+    }
+    
     BEGIN_BLOCK_OBJC_EXCEPTIONS
-    [m_layer.get() setAcceleratesDrawing:acceleratesDrawing];
+
+    BOOL arg = acceleratesDrawing;
+    [inv setArgument:&arg atIndex:2];
+    [inv invokeWithTarget:m_layer.get()];
+//    [m_layer.get() setAcceleratesDrawing:acceleratesDrawing];
     END_BLOCK_OBJC_EXCEPTIONS
 #else
     UNUSED_PARAM(acceleratesDrawing);
