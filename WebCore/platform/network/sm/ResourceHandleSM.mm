@@ -13,12 +13,14 @@
 #include "ResourceHandleClient.h"
 #include "BlockExceptions.h"
 
+
 using namespace WebCore;
 
 @interface WebCoreResourceHandleAsDelegate : NSObject <NSURLConnectionDelegate> {
     ResourceHandle* m_handle;
+    RefPtr<DataTransformation> m_transformation;
 }
-- (id)initWithHandle:(ResourceHandle*)handle;
+- (id)initWithHandle:(ResourceHandle *)handle transformation:(PassRefPtr<DataTransformation>)converter;
 - (void)detachHandle;
 @end
 
@@ -100,9 +102,10 @@ namespace WebCore {
         bool shouldUseCredentialStorage = NO;
         
         d->m_needsSiteSpecificQuirks = NO;
-        
-        createNSURLConnection(
-                              ResourceHandle::delegate(),
+
+
+            createNSURLConnection(
+                              ResourceHandle::delegate(context),
                               shouldUseCredentialStorage,
                               d->m_shouldContentSniff || context->localFileContentSniffingEnabled());
         
@@ -138,10 +141,16 @@ namespace WebCore {
         return false;
     }
     
-    WebCoreResourceHandleAsDelegate *ResourceHandle::delegate()
+    WebCoreResourceHandleAsDelegate *ResourceHandle::delegate(NetworkingContext *context)
     {
         if (!d->m_delegate) {
-            WebCoreResourceHandleAsDelegate *delegate = [[WebCoreResourceHandleAsDelegate alloc] initWithHandle:this];
+            NSURLRequest *nsRequest = firstRequest().nsURLRequest();
+            DataTransformationProvider *provider = context->dataTransformationProvider().get();
+            RefPtr<DataTransformation> t;
+            if (provider) {
+                t = provider->transformationForURL(nsRequest.URL);
+            }
+            WebCoreResourceHandleAsDelegate *delegate = [[WebCoreResourceHandleAsDelegate alloc] initWithHandle:this transformation:t];
             d->m_delegate = delegate;
             [delegate release];
         }
@@ -212,7 +221,7 @@ namespace WebCore {
         }
         
         handle->createNSURLConnection(
-                                      handle->delegate(), // A synchronous request cannot turn into a download, so there is no need to proxy the delegate.
+                                      handle->delegate(context), // A synchronous request cannot turn into a download, so there is no need to proxy the delegate.
                                       storedCredentials == AllowStoredCredentials,
                                       handle->shouldContentSniff() || (context && context->localFileContentSniffingEnabled()));
         
@@ -290,14 +299,15 @@ namespace WebCore {
 
 @implementation WebCoreResourceHandleAsDelegate
 
-- (id)initWithHandle:(ResourceHandle*)handle
-{
+- (id)initWithHandle:(ResourceHandle *)handle transformation:(PassRefPtr<DataTransformation>)converter {
     self = [self init];
     if (!self)
         return nil;
     m_handle = handle;
+    m_transformation = converter;
     return self;
 }
+
 
 - (void)detachHandle
 {
@@ -370,7 +380,16 @@ namespace WebCore {
     // FIXME: https://bugs.webkit.org/show_bug.cgi?id=19793
     // -1 means we do not provide any data about transfer size to inspector so it would use
     // Content-Length headers or content size to show transfer size.
-    m_handle->client()->didReceiveData(m_handle, (const char*)[data bytes], [data length], -1);
+    DataTransformation *transformer = m_transformation.get();
+    void const *bytes = data.bytes;
+    NSUInteger length = data.length;
+    Vector<char> transformed;
+    if (transformer) {
+        transformer->transform(bytes, length, transformed);
+        bytes = transformed.data();
+        length = transformed.size();
+    }
+    m_handle->client()->didReceiveData(m_handle, (const char*)bytes, length, -1);
 }
 
 - (void)connection:(NSURLConnection *)connection willStopBufferingData:(NSData *)data
@@ -501,7 +520,7 @@ void WebCoreSynchronousLoaderClient::didReceiveData(ResourceHandle*, const char*
     [m_data appendBytes:data length:length];
 }
 
-void WebCoreSynchronousLoaderClient::didFinishLoading(ResourceHandle*, double)
+void WebCoreSynchronousLoaderClient::didFinishLoading(ResourceHandle *h, double)
 {
     m_isDone = true;
 }

@@ -23,4 +23,11 @@ ResourceError FrameNetworkingContextSM::blockedError(const ResourceRequest& requ
     return frame()->loader()->client()->blockedError(request);
 }
 
+
+PassRefPtr<DataTransformationProvider> FrameNetworkingContextSM::dataTransformationProvider() const
+   {
+       return m_dataConverterProvider;
+   }
+
+
 }

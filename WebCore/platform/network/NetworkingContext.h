@@ -35,6 +35,20 @@ QT_END_NAMESPACE
 
 namespace WebCore {
 
+#if PLATFORM(MAC)
+    
+    class DataTransformation : public RefCounted<DataTransformation> {
+    public:
+        virtual void transform(void const *in, size_t inLen, Vector<char> &out) const = 0;
+    };
+
+    class DataTransformationProvider : public RefCounted<DataTransformationProvider> {
+    public:
+        virtual PassRefPtr<DataTransformation> transformationForURL(NSURL *) const = 0;
+    };
+#endif
+
+
 #if PLATFORM(ANDROID)
 class FrameLoaderClient;
 class MainResourceLoader;
@@ -53,6 +67,8 @@ public:
     virtual bool localFileContentSniffingEnabled() const = 0;
     virtual SchedulePairHashSet* scheduledRunLoopPairs() const = 0;
     virtual ResourceError blockedError(const ResourceRequest&) const = 0;
+    virtual PassRefPtr<DataTransformationProvider> dataTransformationProvider() const = 0;
+
 #endif
 
 #if PLATFORM(QT)

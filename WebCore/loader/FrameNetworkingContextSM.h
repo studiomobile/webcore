@@ -15,12 +15,18 @@ namespace WebCore {
     class FrameNetworkingContextSM : public FrameNetworkingContext {
         
     public:
-        FrameNetworkingContextSM(Frame *f) : FrameNetworkingContext(f) {}
+        FrameNetworkingContextSM(Frame *f, PassRefPtr<DataTransformationProvider> provider) : FrameNetworkingContext(f) {
+            m_dataConverterProvider = provider;
+        }
         
     virtual bool needsSiteSpecificQuirks() const;
     virtual bool localFileContentSniffingEnabled() const;
     virtual SchedulePairHashSet* scheduledRunLoopPairs() const;
     virtual ResourceError blockedError(const ResourceRequest&) const;
+    virtual PassRefPtr<DataTransformationProvider> dataTransformationProvider() const;
+
+    private:
+    RefPtr<DataTransformationProvider> m_dataConverterProvider;
 };
 
 }

@@ -128,8 +128,6 @@ public:
     bool canAuthenticateAgainstProtectionSpace(const ProtectionSpace&);
 #endif
     NSURLConnection *connection() const;
-    WebCoreResourceHandleAsDelegate *delegate();
-    void releaseDelegate();
     id releaseProxy();
 #endif
 
@@ -235,6 +233,12 @@ private:
 #elif USE(CF)
     void createCFURLConnection(bool shouldUseCredentialStorage, bool shouldContentSniff);
 #endif
+
+#if PLATFORM(MAC) && !USE(CFNETWORK)
+    WebCoreResourceHandleAsDelegate *delegate(NetworkingContext*);
+    void releaseDelegate();
+#endif
+
 
 #if USE(CFURLSTORAGESESSIONS)
     static RetainPtr<CFURLStorageSessionRef> createPrivateBrowsingStorageSession(CFStringRef identifier);

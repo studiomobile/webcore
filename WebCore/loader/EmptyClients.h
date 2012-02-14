@@ -341,7 +341,7 @@ public:
 #endif
 
     virtual PassRefPtr<FrameNetworkingContext> createNetworkingContext() { 
-        return PassRefPtr<FrameNetworkingContext>(adoptRef(new FrameNetworkingContextSM(m_page->mainFrame()))); 
+        return PassRefPtr<FrameNetworkingContext>(adoptRef(new FrameNetworkingContextSM(m_page->mainFrame(), NULL)));
     }
 };
 
