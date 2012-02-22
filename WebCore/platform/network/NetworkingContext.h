@@ -24,6 +24,13 @@
 
 #if PLATFORM(MAC)
 #include "SchedulePair.h"
+
+#ifdef __OBJC__
+@class NSMutableData;
+#else
+class NSMutableData;
+#endif
+
 #endif
 
 #if PLATFORM(QT)
@@ -39,12 +46,14 @@ namespace WebCore {
     
     class DataTransformation : public RefCounted<DataTransformation> {
     public:
-        virtual void transform(void const *in, size_t inLen, Vector<char> &out) const = 0;
+        virtual void transform(void const *in, size_t inLen, NSMutableData *out) const = 0;
+        virtual ~DataTransformation() { }
     };
 
     class DataTransformationProvider : public RefCounted<DataTransformationProvider> {
     public:
         virtual PassRefPtr<DataTransformation> transformationForURL(NSURL *) const = 0;
+        virtual ~DataTransformationProvider() { }
     };
 #endif
 

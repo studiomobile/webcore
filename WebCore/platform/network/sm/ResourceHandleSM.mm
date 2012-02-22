@@ -18,7 +18,7 @@ using namespace WebCore;
 
 @interface WebCoreResourceHandleAsDelegate : NSObject <NSURLConnectionDelegate> {
     ResourceHandle* m_handle;
-    RefPtr<DataTransformation> m_transformation;
+    DataTransformation *m_transformation;
 }
 - (id)initWithHandle:(ResourceHandle *)handle transformation:(PassRefPtr<DataTransformation>)converter;
 - (void)detachHandle;
@@ -299,12 +299,16 @@ namespace WebCore {
 
 @implementation WebCoreResourceHandleAsDelegate
 
-- (id)initWithHandle:(ResourceHandle *)handle transformation:(PassRefPtr<DataTransformation>)converter {
+- (id)initWithHandle:(ResourceHandle *)handle transformation:(PassRefPtr<DataTransformation>)dtRef {
     self = [self init];
     if (!self)
         return nil;
     m_handle = handle;
-    m_transformation = converter;
+    DataTransformation *dt = dtRef.get();
+    if (dt) {
+        dt->ref();
+    }
+    m_transformation = dt;
     return self;
 }
 
@@ -380,16 +384,21 @@ namespace WebCore {
     // FIXME: https://bugs.webkit.org/show_bug.cgi?id=19793
     // -1 means we do not provide any data about transfer size to inspector so it would use
     // Content-Length headers or content size to show transfer size.
-    DataTransformation *transformer = m_transformation.get();
     void const *bytes = data.bytes;
     NSUInteger length = data.length;
-    Vector<char> transformed;
-    if (transformer) {
-        transformer->transform(bytes, length, transformed);
-        bytes = transformed.data();
-        length = transformed.size();
+    NSMutableData *transformed = nil;
+    if (m_transformation) {
+        transformed = [NSMutableData new];
+        m_transformation->transform(bytes, length, transformed);
+        bytes = transformed.bytes;
+        length = transformed.length;
     }
+
     m_handle->client()->didReceiveData(m_handle, (const char*)bytes, length, -1);
+
+    if (m_transformation) {
+        [transformed release];
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection willStopBufferingData:(NSData *)data
@@ -446,6 +455,15 @@ namespace WebCore {
                                                        storagePolicy:static_cast<NSURLCacheStoragePolicy>(policy)] autorelease];
         
         return newResponse;
+}
+
+
+- (void)dealloc {
+    if (m_transformation) {
+        m_transformation->deref();
+    }
+
+    [super dealloc];
 }
 
 @end
